@@ -45,11 +45,11 @@
 static pid_t pipe_child_stdout = 0;
 static pid_t pipe_child_stderr = 0;
 
-void usage() {
+void usage(int rc) {
 	printf("parallel [OPTIONS] command -- arguments\n\tfor each argument, "
 	       "run command with argument, in parallel\n");
 	printf("parallel [OPTIONS] -- commands\n\trun specified commands in parallel\n");
-	exit(1);
+	exit(rc);
 }
 
 static void redirect(int fd, int target_fd, const char *name)
@@ -289,7 +289,7 @@ int main(int argc, char **argv) {
 	       (opt = getopt(argc, argv, "+hij:l:n:")) != -1) {
 		switch (opt) {
 		case 'h':
-			usage();
+			usage(0);
 			break;
 		case 'i':
 			replace_cb = 1;
@@ -322,7 +322,7 @@ int main(int argc, char **argv) {
 			}
 			break;
 		default: /* ’?’ */
-			usage();
+			usage(1);
 			break;
 		}
 	}
