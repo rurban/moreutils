@@ -91,9 +91,9 @@ void exec_child(char **command, char **arguments, int replace_cb, int nargs,
 		for (i = 0; i < argc; i++) {
 			while (replace_cb && (s=strstr(command[i], "{}"))) {
 				char *buf=malloc(strlen(command[i]) + strlen(arguments[0]));
-				s[0]='\0';
+				s[0] = '\0';
 				sprintf(buf, "%s%s%s", command[i], arguments[0], s+2);
-				command[i]=buf;
+				command[i] = buf;
 			}
 			argv[i] = command[i];
 		}
@@ -326,7 +326,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 	}
-	
+
 	if (replace_cb && argsatonce > 1) {
 		fprintf(stderr, "options -i and -n are incompatible\n");
 		exit(2);
@@ -340,7 +340,7 @@ int main(int argc, char **argv) {
 		maxjobs = 1;
 #endif
 	}
-	
+
 	while (optind < argc) {
 		if (strcmp(argv[optind], "--") == 0) {
 			int i;
@@ -391,7 +391,7 @@ int main(int argc, char **argv) {
 			argidx += argsatonce;
 			curjobs++;
 		}
-		
+
 		if (maxjobs == 0 || curjobs == maxjobs) {
 			returncode |= wait_for_child(0);
 			curjobs--;
